@@ -1,4 +1,4 @@
-; Ver 23/12/2022
+; Ver 23-12-2022_02
 
 ; $30,(Game_Mode).w 
 
@@ -406,11 +406,6 @@ GameMode_EndingSequence:dc.l	EndingSequence		; End sequence mode
 GameMode_OptionsMenu:	dc.l	MenuScreen		; Options mode
 GameMode_LevelSelect:	dc.l	MenuScreen		; Level select mode
 GameMode_MainOptions:	dc.l	MenuScreen		; Main options menu
-
-	dc.b	"Sonic the Hedgehog 2™: The Return of Dr. Eggman"
-	dc.b	"Build ver. 8:17 PM 24/11/2022"
-	dc.b	"Sonic Origins sucks!"
-	even
 
 ; ===========================================================================
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -3825,86 +3820,6 @@ Angle_Data:	BINCLUDE	"misc/angles.bin"
 ; ===========================================================================
 ; loc_37B8:
 SegaScreen:
-  if DebugVersion=1
-	move.w	#MusID_Stop,d0
-	jsr	(PlayMusic).l
-
-	bsr.w	Pal_FadeToBlack
-	move	#$2700,sr
-	move.w	(VDP_Reg1_val).w,d0
-	andi.b	#$BF,d0
-	move.w	d0,(VDP_control_port).l
-	jsr	(ClearScreen).l
-	lea	(VDP_control_port).l,a6
-	move.w	#$8004,(a6)		; H-INT disabled
-	move.w	#$8200|(VRAM_Menu_Plane_A_Name_Table/$400),(a6)		; PNT A base: $C000
-	move.w	#$8400|(VRAM_Menu_Plane_B_Name_Table/$2000),(a6)	; PNT B base: $E000
-	move.w	#$8200|(VRAM_Menu_Plane_A_Name_Table/$400),(a6)		; PNT A base: $C000
-	move.w	#$8700,(a6)		; Background palette/color: 0/0
-	move.w	#$8C81,(a6)		; H res 40 cells, no interlace, S/H disabled
-	move.w	#$9001,(a6)		; Scroll table size: 64x32
-
-	clearRAM Object_RAM,Object_RAM_End
-	clearRAM Sprite_Table_Input,Sprite_Table_Input_End
-	clearRAM MiscLevelVariables,MiscLevelVariables_End
-	clearRAM Misc_Variables,Misc_Variables_End
-	clearRAM Oscillating_Data,Oscillating_variables_End
-	clearRAM CNZ_saucer_data,CNZ_saucer_data_End
-
-	; load background + graphics of font
-	ResetDMAQueue
-	move.l	#vdpComm(tiles_to_bytes(ArtTile_ArtNem_FontStuff),VRAM,WRITE),(VDP_control_port).l
-	lea	(ArtNem_FontStuff).l,a0
-	jsr	(NemDec).l
-
-	; Load foreground
-	lea	(Chunk_Table).l,a1
-	lea	(MapEng_EndScr).l,a0	; 2 bytes per 8x8 tile, compressed
-	move.w	#make_art_tile(ArtTile_VRAM_Start,0,0),d0
-	jsr	(EniDec).l
-
-	lea	(Chunk_Table).l,a1
-	move.l	#vdpComm(VRAM_Plane_A_Name_Table,VRAM,WRITE),d0
-	moveq	#$27,d1
-	moveq	#$1B,d2	; 40x28 = whole screen
-	jsr	(PlaneMapToVRAM_H40).l	; display patterns
-
-	; Overwrite the placeholder build date text with the actual one
-	lea	(Chunk_Table+$2A6).l,a1
-	lea	(BuildText).l,a2
-
-	moveq	#bytesToWcnt(BuildText_End-BuildText),d6
--	move.w	(a2)+,(a1)+
-	dbf	d6,-
-
-	lea	(Chunk_Table).l,a1
-	move.l	#vdpComm(VRAM_Plane_A_Name_Table,VRAM,WRITE),d0
-	moveq	#$27,d1
-	moveq	#$1B,d2
-	jsr	(PlaneMapToVRAM_H40).l	; display patterns
-
-	move.b	#PalID_Ending,d0
-	bsr.w	PalLoad_ForFade
-
-	move.w	(VDP_Reg1_val).w,d0
-	ori.b	#$40,d0
-	move.w	d0,(VDP_control_port).l
-
-	bsr.w	Pal_FadeFromBlack
-
--	move.w	#Vint_Menu,(Vint_routine).w
-	bsr.w	WaitForVint
-
-	jsr	(RunObjects).l
-	jsr	(BuildSprites).l
-
-	move.b	(Ctrl_1_Press).w,d0
-	or.b	(Ctrl_2_Press).w,d0
-	andi.b	#button_start_mask,d0	; start pressed?
-	bne.s	+	; yes
-	bra.w	-	; no
-+
-  endif
 	move.b	#MusID_Stop,d0
 	bsr.w	PlayMusic ; stop music
 	bsr.w	ClearPLC
@@ -3996,32 +3911,6 @@ Sega_GotoTitle:
 	clr.w	(SegaScr_VInt_Subrout).w
 	move.b	#GameModeID_TitleScreen,(Game_Mode).w	; => TitleScreen
 	rts
-; ===========================================================================
-
-buildText macro input
-	dc.w  make_art_tile(ArtTile_ArtNem_FontStuff + 'input',0,0)
-    endm
-
-	charset '0','9',0 ; Add character set for numbers
-	charset '*',$A ; Add character for star
-	charset '@',$B ; Add character for copyright symbol
-	charset ':',$C ; Add character for colon
-	charset '.',$D ; Add character for period
-	charset 'A','Z',$E ; Add character set for letters
-
-; What this does is overwrite the placeholder text with the correct build date
-BuildText:
-	buildText 1
-	buildText 1
-	buildText .
-	buildText 0
-	buildText 9
-	buildText .
-	buildText 2
-	buildText 2
-BuildText_End:
-
-    charset ; Revert character set
 ; ===========================================================================
 ; loc_3998:
 TitleScreen:
