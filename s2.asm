@@ -1,3 +1,5 @@
+; Ver 23/12/2022
+
 ; $30,(Game_Mode).w 
 
 ; Sonic the Hedgehog 2 disassembled binary
@@ -84144,6 +84146,7 @@ ObjC5_CaseStart:
 	bsr.w	LoadChildObject
 	move.w	#$5A,objoff_2A(a0)	; How long for the boss music to start playing and the boss to start
 	move.w	#$2AE0,(Camera_Min_X_pos).w
+	move.w	#$440,(Camera_Min_Y_pos).w
 	moveq	#MusID_FadeOut,d0
 	jsrto	(PlaySound).l, JmpTo12_PlaySound
 	jmpto	(DisplaySprite).l, JmpTo45_DisplaySprite
@@ -84358,6 +84361,7 @@ ObjC5_End:	; play music and change camera speed
 	move.w	#$720,d0
 	move.w	d0,(Camera_Max_Y_pos_now).w
 	move.w	d0,(Camera_Max_Y_pos).w
+	clr.w	(Camera_Min_Y_pos).w
 	bsr.w	JmpTo65_DeleteObject
 	addq.w	#4,sp
 	rts
@@ -84693,6 +84697,8 @@ ObjC5_LaserInit:
 	addi.w	#$10,y_pos(a0)
 	move.b	#$C,anim_frame(a0)
 	subq.w	#3,y_pos(a0)
+	move.w	#SndID_WFZLaserChrg,d0
+	jsr	(PlaySound).l
 	rts
 ; ===========================================================================
 
@@ -84731,6 +84737,8 @@ ObjC5_LaseWaitShoot:
 ObjC5_LaseStartShooting:
 	addq.b	#2,routine_secondary(a0)
 	addi.w	#$10,y_pos(a0)
+	move.w	#SndID_WFZLaserFire,d0
+	jsr	(PlaySound).l
 	rts
 ; ===========================================================================
 
@@ -95154,8 +95162,8 @@ SndPtr_Blip:		rom_ptr_z80	Sound4D	; selection blip
 SndPtr_RingLeft:	rom_ptr_z80	Sound4E	; another ring sound (only plays in the left speaker?)
 SndPtr_Signpost:	rom_ptr_z80	Sound4F	; signpost spin sound
 SndPtr_CNZBossZap:	rom_ptr_z80	Sound50	; mosquito zapper
-			rom_ptr_z80	Sound51	; (unused)
-			rom_ptr_z80	Sound52	; (unused)
+SndPtr_WFZLaserChrg:	rom_ptr_z80	Sound51	; (unused)
+SndPtr_WFZLaserFire:	rom_ptr_z80	Sound52	; (unused)
 SndPtr_Signpost2P:	rom_ptr_z80	Sound53
 SndPtr_OOZLidPop:	rom_ptr_z80	Sound54	; OOZ lid pop sound
 SndPtr_SlidingSpike:	rom_ptr_z80	Sound55
@@ -95649,26 +95657,11 @@ Sound50:	dc.w z80_ptr(ssamp50),$0101
 ssamp50:	dc.b $83,$12,$13,$10,$1E,$1F,$1F,$1F,$1F,$00,$00,$00
 		dc.b $00,$02,$02,$02,$02,$2F,$FF,$2F,$3F,$06,$34,$10,$87
 
-; (unused)
-Sound51:	dc.w z80_ptr(ssamp51),$0102
-		dc.w $80C0,z80_ptr(+),$0001
-		dc.w $8005,z80_ptr(++),$000B
-+		dc.b $F5,$02,$F3,$E4,$B0,$04,$85,$02,$F2
-+		dc.b $EF,$00,$E8,$04,$A5,$06,$F2
-ssamp51:	dc.b $3C,$02,$01,$00,$01,$1F,$1F,$1F,$1F,$00,$19,$0E
-		dc.b $10,$00,$00,$0C,$0F,$0F,$FF,$EF,$FF,$05,$00,$80,$80
+; WFZ laser charging
+Sound51:	include	"sound/sfx/51 - WFZ laser charging.asm"
 
-; (unused)
-Sound52:	dc.w z80_ptr(ssamp52),$0101
-		dc.w $8005,z80_ptr(+),$0002
-+		dc.b $F0,$01,$01,$2A,$07,$EF,$00
--		dc.b $A5,$03
-		dc.w $E7F7,$0013,z80_ptr(-)
--		dc.b $A5,$03,$E7,$E6
-		dc.w $02F7,$0013,z80_ptr(-)
-		dc.b $F2
-ssamp52:	dc.b $28,$21,$21,$21,$30,$1F,$1F,$1F,$1F,$00,$00,$00
-		dc.b $00,$00,$00,$00,$00,$FF,$FF,$FF,$FF,$29,$20,$29,$80
+; WFZ laser firing (imported from S3K)
+Sound52:	include	"sound/sfx/52 - WFZ laser firing.asm"
 
 
 Sound53:	dc.w z80_ptr(ssamp53),$0101
