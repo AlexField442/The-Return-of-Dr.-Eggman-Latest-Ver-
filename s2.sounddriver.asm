@@ -2705,6 +2705,8 @@ cfSetTempoMod:
 ; "To make a note softer, only change the TL of the slots (the output operators).
 ; Changing the other operators will affect the flavor of the note."
 ; zloc_DF1:
+	align 8
+
 	ensure1byteoffset 8
 zVolTLMaskTbl:
 	db	  8,  8,  8,  8
