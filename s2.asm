@@ -3498,6 +3498,7 @@ PalPtr_Title:	palptr Pal_Title, 1
 PalPtr_BGND:	palptr Pal_BGND,  0
 PalPtr_EHZ:	palptr Pal_EHZ,   1
 PalPtr_EHZ2:	palptr Pal_EHZ2,  1
+PalPtr_EHZ_2P:	palptr Pal_EHZ_2P, 1
 PalPtr_OWZ1:	palptr Pal_OWZ1,  1
 PalPtr_OWZ2:	palptr Pal_OWZ2,  1
 PalPtr_WZ:	palptr Pal_WZ,    1
@@ -3555,6 +3556,7 @@ PalPtr_Ending:	palptr	Pal_Ending, 0
 PalPtr_SEGA:	palptr Pal_SEGA,  0
 PalPtr_Title:	palptr Pal_Title, 1
 PalPtr_BGND:	palptr Pal_BGND,  0
+PalPtr_EHZ_2P:
 PalPtr_EHZ:	palptr Pal_EHZ,   1
 PalPtr_OWZ1:
 PalPtr_OWZ2:
@@ -3629,6 +3631,7 @@ Pal_Title: palette Title screen.bin ; Title screen Palette
 Pal_BGND:  palette SonicAndTails.bin,SonicAndTails2.bin ; "Sonic and Miles" background palette (also usually the primary palette line)
 Pal_EHZ:   palette EHZ.bin 			; Emerald Hill Zone Act 1 palette
 Pal_EHZ2:  palette EHZ2.bin			; Emerald Hill Zone Act 2 palette
+Pal_EHZ_2P:  palette EHZ_2P.bin			; Emerald Hill Zone 2-Player palette
 Pal_OWZ1:  palette OWZ1.bin			; Ocean Wind Zone Act 1 palette
 Pal_OWZ1_U:  palette OWZ1 underwater.bin	; Ocean Wind Zone Act 1 underwater palette
 Pal_OWZ2:  palette OWZ2.bin			; Ocean Wind Zone Act 2 palette
@@ -91740,9 +91743,9 @@ cur_zone_str := "\{cur_zone_id}"
 ; dword_42594: MainLoadBlocks: saArtPtrs:
 LevelArtPointers:
 	levartptrs PLCID_Ehz1,     PLCID_Ehz2,      PalID_EHZ,  ArtKos_EHZ, BM16_EHZ, BM128_EHZ 	;   0 ; EHZ1 ; EMERALD HILL ZONE ACT 1
-	levartptrs PLCID_Ehz1,     PLCID_Ehz2,      PalID_EHZ,  ArtKos_EHZ, BM16_EHZ, BM128_EHZ 	;   0 ; EHZ1 ; EMERALD HILL ZONE ACT 1 (2 PLAYER)
+	levartptrs PLCID_Ehz1,     PLCID_Ehz2,      PalID_EHZ_2P,  ArtKos_EHZ, BM16_EHZ, BM128_EHZ 	;   0 ; EHZ1 ; EMERALD HILL ZONE ACT 1 (2 PLAYER)
 	levartptrs PLCID_Ehz1,     PLCID_Ehz2,      PalID_EHZ2, ArtKos_EHZ, BM16_EHZ, BM128_EHZ 	;   0 ; EHZ2 ; EMERALD HILL ZONE ACT 2
-	levartptrs PLCID_Ehz1,     PLCID_Ehz2,      PalID_EHZ2, ArtKos_EHZ, BM16_EHZ, BM128_EHZ 	;   0 ; EHZ2 ; EMERALD HILL ZONE ACT 2 (2 PLAYER)
+	levartptrs PLCID_Ehz1,     PLCID_Ehz2,      PalID_EHZ_2P, ArtKos_EHZ, BM16_EHZ, BM128_EHZ 	;   0 ; EHZ2 ; EMERALD HILL ZONE ACT 2 (2 PLAYER)
 	levartptrs PLCID_Owz1,     PLCID_Owz2,      PalID_OWZ1, ArtKos_OWZ, BM16_OWZ, BM128_OWZ 	;   1 ; OWZ1 ; OCEAN WIND ZONE ACT 1
 	levartptrs PLCID_Owz1,     PLCID_Owz2,      PalID_OWZ1, ArtKos_OWZ, BM16_OWZ, BM128_OWZ 	;   1 ; OWZ1 ; OCEAN WIND ZONE ACT 1 (2 PLAYER)
 	levartptrs PLCID_Owz1,     PLCID_Owz2,      PalID_OWZ2, ArtKos_OWZ, BM16_OWZ, BM128_OWZ 	;   1 ; OWZ2 ; OCEAN WIND ZONE ACT 2

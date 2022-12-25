@@ -6,7 +6,7 @@ NumberOfZones = $10	; change this when adding new zones!
 ; ---------------------------------------------------------------------------
 ; size variables - you'll get an informational error if you need to change these...
 ; they are all in units of bytes
-Size_of_Snd_driver_guess =	$E00 ; approximate post-compressed size of the Z80 sound driver
+Size_of_Snd_driver_guess =	$E1B ; approximate post-compressed size of the Z80 sound driver
 
 ; ---------------------------------------------------------------------------
 ; Object Status Table offsets (for everything between Object_RAM and Primary_Collision)
@@ -393,6 +393,7 @@ PalID_Title =	id(PalPtr_Title) ; 1
 PalID_BGND =	id(PalPtr_BGND) ; 3
 PalID_EHZ =	id(PalPtr_EHZ) ; 4
 PalID_EHZ2 =	id(PalPtr_EHZ2)
+PalID_EHZ_2P =	id(PalPtr_EHZ_2P)
 PalID_OWZ1 =	id(PalPtr_OWZ1) ; 5
 PalID_OWZ1_U =	id(PalPtr_OWZ1_U)
 PalID_OWZ2 =	id(PalPtr_OWZ2)
