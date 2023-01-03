@@ -1,6 +1,4 @@
-; Ver 23-12-2022_02
-
-; $30,(Game_Mode).w 
+; Ver 03-01-2023_01
 
 ; Sonic the Hedgehog 2 disassembled binary
 
@@ -12770,10 +12768,27 @@ MainOpt_MarkTable:	; 4 bytes per entry
 	charset ':',$1C
 	charset '.',$1D
 	charset ' ',0
-
+	charset ',',"\104"
+	charset '+',"\105"
+	charset '-',"\106"
+	charset '&',"\107"
+	charset '$',"\108"
+	charset '(',"\109"
+	charset ')',"\110"
+	charset '#',"\111"
+	charset '!',"\112"
+	charset '^',"\113"
+	charset '[',"\114"
+	charset ']',"\115"
+	charset '{',"\116"
+	charset '}',"\117"
+	charset ';',"\118"
+	charset '`',"\119"
+	charset '|',"\120"
 	; options screen menu text
 
-TextOptScr_PlayerSelect:	menutxt	"* PLAYER SELECT *"	; byte_97CA:
+TextOptScr_PlayerSelect:;	menutxt	"* PLAYER SELECT *"	; byte_97CA:
+				menutxt ",+-&$()#!^[]{};`|"
 TextOptScr_SonicAndMiles:	menutxt	"SONIC AND MILES"	; byte_97DC:
 TextOptScr_SonicAndTails:	menutxt	"SONIC AND TAILS"	; byte_97EC:
 TextOptScr_SonicAlone:		menutxt	"SONIC ALONE    "	; byte_97FC:
