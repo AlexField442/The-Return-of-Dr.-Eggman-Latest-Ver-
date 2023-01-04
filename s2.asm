@@ -1,4 +1,4 @@
-; Ver 03-01-2023_01
+; Ver 04-01-2023_01
 
 ; Sonic the Hedgehog 2 disassembled binary
 
@@ -11690,6 +11690,34 @@ iconData macro txtlabel,txtlabel2,vramAddr,iconPal,iconAddr
 	iconData	Text2P_CasinoNight,Text2P_Zone,VRAM_Plane_A_Name_Table+planeLocH40(2,15),6,$FF03C0
 	iconData	Text2P_Special,Text2P_Stage,VRAM_Plane_A_Name_Table+planeLocH40(22,15),$C,$FF0450
 
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Subroutine to load the appropriate pattern depending on the language
+; (can currently only be set through cheating)
+; ---------------------------------------------------------------------------
+
+Options_TextLanguage:
+	moveq	#0,d0
+	move.b	(CurrentLanguage).w,d0
+	add.w	d0,d0
+	add.w	d0,d0
+	lea	OptionsLangScreens(pc),a1
+	movea.l	(a1,d0.w),a3
+	rts
+; ---------------------------------------------------------------------------
+; $00 - English
+; $01 - French
+; $02 - Italian
+; $03 - German
+; $04 - Spanish
+OptionsLangScreens:
+	dc.l	OptScrBoxData
+	dc.l	OptScrBoxDataFr
+	dc.l	OptScrBoxData
+	dc.l	OptScrBoxData
+	dc.l	OptScrBoxData
+	even
+
 ; ---------------------------------------------------------------------------
 ; Common menu screen subroutine for transferring text to RAM
 
@@ -11893,13 +11921,13 @@ OptionScreen_DrawSelected:
 	moveq	#0,d1
 	move.b	(Options_menu_box).w,d1
 	lsl.w	#3,d1
-	lea	(OptScrBoxData).l,a3
+	bsr.w	Options_TextLanguage
 	lea	(a3,d1.w),a3
 	move.w	#palette_line_3,d0
-	lea	(Chunk_Table+$30).l,a2
+	lea	(Chunk_Table+$2E).l,a2
 	movea.l	(a3)+,a1
 	bsr.w	MenuScreenTextToRAM
-	lea	(Chunk_Table+$B6).l,a2
+	lea	(Chunk_Table+$B4).l,a2
 	moveq	#0,d1
 	cmpi.b	#2,(Options_menu_box).w
 	beq.s	+
@@ -11930,13 +11958,13 @@ OptionScreen_DrawUnselected:
 	moveq	#0,d1
 	move.b	(Options_menu_box).w,d1
 	lsl.w	#3,d1
-	lea	(OptScrBoxData).l,a3
+	bsr.w	Options_TextLanguage
 	lea	(a3,d1.w),a3
 	moveq	#palette_line_0,d0
-	lea	(Chunk_Table+$190).l,a2
+	lea	(Chunk_Table+$18E).l,a2
 	movea.l	(a3)+,a1
 	bsr.w	MenuScreenTextToRAM
-	lea	(Chunk_Table+$216).l,a2
+	lea	(Chunk_Table+$214).l,a2
 	moveq	#0,d1
 	cmpi.b	#2,(Options_menu_box).w
 	beq.s	+
@@ -12031,6 +12059,11 @@ off_92EA:
 	dc.l TextOptScr_TeleportOnly
 off_92F2:
 	dc.l TextOptScr_0
+
+OptScrBoxDataFr:
+	boxData	TextOptScr_PlayerSelectFr,VRAM_Plane_A_Name_Table+planeLocH40(10,3)
+	boxData	TextOptScr_VsModeItemsFr,VRAM_Plane_A_Name_Table+planeLocH40(10,11)
+	boxData	TextOptScr_SoundTestFr,VRAM_Plane_A_Name_Table+planeLocH40(10,19)
 ; ===========================================================================
 ; loc_92F6:
 MenuScreen_LevelSelect:
@@ -12557,9 +12590,17 @@ MainOptionsLanguage:
 	move.w	#make_art_tile(ArtTile_VRAM_Start,0,0),d0
 	jmp	(EniDec).l
 ; ---------------------------------------------------------------------------
+; $00 - English
+; $01 - French
+; $02 - Italian
+; $03 - German
+; $04 - Spanish
 MainOptionsLangScreens:
 	dc.l	MapEng_MainOptEn
 	dc.l	MapEng_MainOptFr
+	dc.l	MapEng_MainOptEn
+	dc.l	MapEng_MainOptEn
+	dc.l	MapEng_MainOptEn
 	even
 ; ===========================================================================
 
@@ -12787,19 +12828,23 @@ MainOpt_MarkTable:	; 4 bytes per entry
 	charset '|',"\120"
 	; options screen menu text
 
-TextOptScr_PlayerSelect:;	menutxt	"* PLAYER SELECT *"	; byte_97CA:
-				menutxt ",+-&$()#!^[]{};`|"
-TextOptScr_SonicAndMiles:	menutxt	"SONIC AND MILES"	; byte_97DC:
-TextOptScr_SonicAndTails:	menutxt	"SONIC AND TAILS"	; byte_97EC:
-TextOptScr_SonicAlone:		menutxt	"SONIC ALONE    "	; byte_97FC:
-TextOptScr_MilesAlone:		menutxt	"MILES ALONE    "	; byte_980C:
-TextOptScr_TailsAlone:		menutxt	"TAILS ALONE    "	; byte_981C:
-TextOptScr_KnucklesAlone:	menutxt	"KNUCKLES ALONE "
-TextOptScr_VsModeItems:		menutxt	"* VS MODE ITEMS *"	; byte_982C:
-TextOptScr_AllKindsItems:	menutxt	"ALL KINDS ITEMS"	; byte_983E:
-TextOptScr_TeleportOnly:	menutxt	"TELEPORT ONLY  "	; byte_984E:
-TextOptScr_SoundTest:		menutxt	"*  SOUND TEST   *"	; byte_985E:
-TextOptScr_0:			menutxt	"      00       "	; byte_9870:
+TextOptScr_PlayerSelect:	menutxt	" * PLAYER SELECT * "	; byte_97CA:
+				;menutxt " ,+-&$()#!^[]{};`| "
+TextOptScr_SonicAndMiles:	menutxt	" SONIC AND MILES"	; byte_97DC:
+TextOptScr_SonicAndTails:	menutxt	" SONIC AND TAILS"	; byte_97EC:
+TextOptScr_SonicAlone:		menutxt	" SONIC ALONE    "	; byte_97FC:
+TextOptScr_MilesAlone:		menutxt	" MILES ALONE    "	; byte_980C:
+TextOptScr_TailsAlone:		menutxt	" TAILS ALONE    "	; byte_981C:
+TextOptScr_KnucklesAlone:	menutxt	" KNUCKLES ALONE "
+TextOptScr_VsModeItems:		menutxt	" * VS MODE ITEMS * "	; byte_982C:
+TextOptScr_AllKindsItems:	menutxt	" ALL KINDS ITEMS"	; byte_983E:
+TextOptScr_TeleportOnly:	menutxt	" TELEPORT ONLY  "	; byte_984E:
+TextOptScr_SoundTest:		menutxt	" *  SOUND TEST   * "	; byte_985E:
+TextOptScr_0:			menutxt	"                "	; byte_9870:
+
+TextOptScr_PlayerSelectFr:	menutxt "S+LECTION DU JOUEUR"
+TextOptScr_VsModeItemsFr:	menutxt " OBJETS DU MODE VS "
+TextOptScr_SoundTestFr		menutxt "     TEST SON      "
 	charset
 
 ; ===========================================================================
