@@ -1,4 +1,4 @@
-; Ver 04-01-2023_01
+; Ver 05-01-2023_01
 
 ; Sonic the Hedgehog 2 disassembled binary
 
@@ -11713,7 +11713,7 @@ Options_TextLanguage:
 OptionsLangScreens:
 	dc.l	OptScrBoxData
 	dc.l	OptScrBoxDataFr
-	dc.l	OptScrBoxData
+	dc.l	OptScrBoxDataIt
 	dc.l	OptScrBoxData
 	dc.l	OptScrBoxData
 	even
@@ -11767,8 +11767,8 @@ MenuScreen_Options:
 	lea	(Anim_SonicMilesBG).l,a2
 	jsrto	(Dynamic_Normal).l, JmpTo2_Dynamic_Normal
 	bsr.w	LoadMenuTheme
-	move.b	#MusID_Options,d0
-	jsrto	(PlayMusic).l, JmpTo_PlayMusic
+;	move.b	#MusID_Options,d0
+;	jsrto	(PlayMusic).l, JmpTo_PlayMusic
 	clr.w	(Two_player_mode).w
 	clr.l	(Camera_X_pos).w
 	clr.l	(Camera_Y_pos).w
@@ -11795,7 +11795,7 @@ OptionScreen_Main:
 	lea	(Anim_SonicMilesBG).l,a2
 	jsrto	(Dynamic_Normal).l, JmpTo2_Dynamic_Normal
 
-	jsr	BuildSprites
+	jsr	(BuildSprites).l
 
 	move.b	(Ctrl_1_Press).w,d0
 	or.b	(Ctrl_2_Press).w,d0
@@ -12064,6 +12064,11 @@ OptScrBoxDataFr:
 	boxData	TextOptScr_PlayerSelectFr,VRAM_Plane_A_Name_Table+planeLocH40(10,3)
 	boxData	TextOptScr_VsModeItemsFr,VRAM_Plane_A_Name_Table+planeLocH40(10,11)
 	boxData	TextOptScr_SoundTestFr,VRAM_Plane_A_Name_Table+planeLocH40(10,19)
+
+OptScrBoxDataIt:
+	boxData	TextOptScr_PlayerSelectIt,VRAM_Plane_A_Name_Table+planeLocH40(10,3)
+	boxData	TextOptScr_VsModeItemsIt,VRAM_Plane_A_Name_Table+planeLocH40(10,11)
+	boxData	TextOptScr_SoundTestIt,VRAM_Plane_A_Name_Table+planeLocH40(10,19)
 ; ===========================================================================
 ; loc_92F6:
 MenuScreen_LevelSelect:
@@ -12828,8 +12833,8 @@ MainOpt_MarkTable:	; 4 bytes per entry
 	charset '|',"\120"
 	; options screen menu text
 
-TextOptScr_PlayerSelect:	menutxt	" * PLAYER SELECT * "	; byte_97CA:
 				;menutxt " ,+-&$()#!^[]{};`| "
+TextOptScr_PlayerSelect:	menutxt	" * PLAYER SELECT * "	; byte_97CA:
 TextOptScr_SonicAndMiles:	menutxt	" SONIC AND MILES"	; byte_97DC:
 TextOptScr_SonicAndTails:	menutxt	" SONIC AND TAILS"	; byte_97EC:
 TextOptScr_SonicAlone:		menutxt	" SONIC ALONE    "	; byte_97FC:
@@ -12844,12 +12849,17 @@ TextOptScr_0:			menutxt	"                "	; byte_9870:
 
 TextOptScr_PlayerSelectFr:	menutxt "S+LECTION DU JOUEUR"
 TextOptScr_VsModeItemsFr:	menutxt " OBJETS DU MODE VS "
-TextOptScr_SoundTestFr		menutxt "     TEST SON      "
+TextOptScr_SoundTestFr:		menutxt "     TEST SON      "
+
+TextOptScr_PlayerSelectIt:	menutxt "SELEZIONE GIOCATORE"
+TextOptScr_VsModeItemsIt:	menutxt "OGGETTI MODALIT# VS"
+TextOptScr_SoundTestIt:		menutxt "    PROVA SUONO    "
 	charset
 
 ; ===========================================================================
 ; level select picture palettes
 ; byte_9880:
+	even
 Pal_LevelIcons:	BINCLUDE "art/palettes/Level Select Icons.bin"
 
 ; 2-player level select screen mappings (Enigma compressed)
@@ -12871,7 +12881,6 @@ MapEng_LevSel:	BINCLUDE "mappings/misc/Level Select.bin"
 ; byte_9C32:
 	even
 MapEng_LevSelIcon:	BINCLUDE "mappings/misc/Level Select Icons.bin"
-	even
 
 ; main options screen mappings (Enigma compressed)
 	even
