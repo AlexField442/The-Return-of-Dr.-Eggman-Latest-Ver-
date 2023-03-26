@@ -1,0 +1,73 @@
+I'm thinking about implementing some sort of character biographies in-game, perhaps as a bonus feature
+for collecting all Chaos Emeralds in a playthrough? (though this would require SRAM to remember...).
+(using non-Origins/Encyclospeedia terms because I like authenticity... and because I'm REALLY not a fan
+ of their plot changes, if anyone who read my ongoing Sonic 2 fanfic didn't already know)
+
+
+
+(there could also add some illustrations beside; preferably original, or at least redrawn pixel versions,
+ not obviously ripped ones with artefacts or bad shading)
+
+
+Sonic the Hedgehog:
+The famous hero himself, the superfast blue hedgehog. Has a tendacy to act before he thinks, sometimes
+putting himself in reckless situations, but is otherwise cocky and pure-hearted. Despite his speed, he
+is incapable of swimming, making water one of his worst enemies.
+
+
+Tails the Fox:*
+Real name Miles Prower, a young red fox with blue eyes. Bullied for his two tails and high intelligence,
+he became an idol of Sonic and attempts to catch up with him by twisting his two tails into a propeller,
+and either speeding up or flying with them. Afraid of lightning and loves some mint candy.
+
+*In JP, switch to Miles Prower and at the beginning, put "Nicknamed Tails".
+
+
+Dr. Eggman:
+Real name Dr. Robotnik, the mad scientist who has battled Sonic continually for years. Now, he is in the
+middle of his most diabolical plan yet, a giant space fortress known as the Death Egg which he can use as
+a base or inflict destruction on Earth.
+
+
+Great Battle Kukku XV:
+During the time Tails was living on Cocoa Island, this bird and the Battle Kukku Empire orchestrated an
+attack on the island to gather the Chaos Emeralds. He is rather tall, about twice the size of Tails, and
+is said to be a maniacal dictator.
+
+
+Battle Kukku XVI:
+Also known as Speedy, he is the son of Kukku XV and is the heir to their throne. During the attack on
+Cocoa Island, he becomes a rival to Tails before being defeated in his battle armor form. He is able to
+fly at high speeds.
+
+
+Doctor Fukurokov:
+The main scientist working for the Kukku Empire, being rather short and having a thick white beard. Although
+intellegent, he tends to overlook small details which tends to lead to his downfall. He also has a massive,
+but fragile ego.
+
+
+Witchcart:
+An old robed hag whom Tails will have to fight in the future. She intends on taking control of a small
+island and freezing any non-followers of her rule in crystal using her magic staff. As her name suggests,
+she rides around in a rail cart and leads her henchmen, which are...
+
+
+Hocke-Wulf:*
+A mean-spirited, lanky wolf who travels around in his hoverbike. Very giggly and crazy, but also has
+temper and can become violent if pushed far enough. Although he considers and attempts to portray
+himself smart, he is really just arrogant and stupid. Also REALLY likes bombs.
+
+*Use the updated name here, as "Focke-Wulf" sounds too similar to "fuck"
+
+
+Bearenger:
+A foul-mouthed, chubby black bear with a tendancy to curse. Has rather high durability, but fears her
+boss and will take orders if she ever becomes angry. For whatever reason, he is missing some teeth
+and part of his right ear. Flies around in a blue rocket with an angry face on it.
+
+
+Carrottia:
+A young, flirty doe with white fur and blue eyelids. Known for having a complete lack of interest in
+many things, and can end up quite moody when forced to do work. Moves around in a carrot with a green
+propeller on its back, and the capability to shoot tiny carrot missiles.
